@@ -3,7 +3,6 @@ from autobahn.asyncio.websocket import WebSocketServerProtocol, \
 
 
 class MyServerProtocol(WebSocketServerProtocol):
-
     def onConnect(self, request):
         print("Client connecting: {0}".format(request.peer))
 
@@ -14,10 +13,14 @@ class MyServerProtocol(WebSocketServerProtocol):
         if isBinary:
             print("Binary message received: {0} bytes".format(len(payload)))
         else:
+            # import json
+            # if JSON message: obj = json.loads(payload.decode('utf8'))
             print("Text message received: {0}".format(payload.decode('utf8')))
 
         # echo back message verbatim
+        # payload is utf8 encoded
         self.sendMessage(payload, isBinary)
+        print(payload)
 
     def onClose(self, wasClean, code, reason):
         print("WebSocket connection closed: {0}".format(reason))
@@ -30,8 +33,8 @@ if __name__ == '__main__':
     except ImportError:
         # Trollius >= 0.3 was renamed
         import trollius as asyncio
-
-    factory = WebSocketServerFactory("ws://localhost:9000", debug=False)
+    # start server
+    factory = WebSocketServerFactory("ws://localhost:9000", debug=True)
     factory.protocol = MyServerProtocol
 
     loop = asyncio.get_event_loop()
