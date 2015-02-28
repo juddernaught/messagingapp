@@ -29,9 +29,9 @@
 from setuptools import setup
 
 setup(
-    name = 'hello',
+    name = 'backend',
     version = '0.0.1',
-    description = "'hello' WAMP Component",
+    description = "'backend' WAMP Component",
     platforms = ['Any'],
     packages = ['hello'],
     include_package_data = True,

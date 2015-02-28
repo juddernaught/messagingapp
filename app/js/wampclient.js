@@ -1,4 +1,7 @@
-var app = angular.module("wampMessagingApp", ["vxWamp"]);
+var app = angular.module("wampMessagingApp", [
+	"vxWamp", 
+	"luegg.directives"
+]);
 
 
 // var wsuri;
@@ -18,10 +21,11 @@ app.config(function ($wampProvider) {
 	});
 });
 
-app.controller("WampMessagingController", function($scope, $wamp, $sce) {
+app.controller("WampMessagingController", function ($scope, $wamp, $sce) {
 	$wamp.open();
-	$scope.messages = [];
+	$scope.textToSend = "";
 	$scope.conversationText = "";
+
   // 1) subscribe to a topic
   function onevent(args) {
   	var incomingMessage = args[0];
@@ -35,7 +39,9 @@ app.controller("WampMessagingController", function($scope, $wamp, $sce) {
   $scope.submitText = function () {
   	console.log('here');
   	$scope.conversationText += '>>> ' + $scope.textToSend + '\n';
+  	$scope.messages.push('>>> ' + $scope.textToSend);
 		$wamp.publish('com.myapp.topic1', [$scope.textToSend]);
+		$scope.textToSend = "";
   };
   $wamp.subscribe('com.myapp.topic1', onevent);
 
@@ -49,8 +55,8 @@ app.controller("WampMessagingController", function($scope, $wamp, $sce) {
   // $wamp.register('com.myapp.add2', add2);
 
   // // 4) call a remote procedure
-  // $wamp.call('com.myapp.add2', [2, 3]).then(
-  //    function (res) {
-  //       $scope.add2 = res;
-  // });      
+  $wamp.call('com.myapp.getMessages').then(function (res) {
+		// $scope.conversationText = res[i] + $scope.conversationText;
+		$scope.messages = res
+  });      
 });

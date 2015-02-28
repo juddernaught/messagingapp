@@ -31,6 +31,7 @@ from twisted.internet.defer import inlineCallbacks
 from autobahn.twisted.util import sleep
 from autobahn.twisted.wamp import ApplicationSession
 from autobahn.wamp.exception import ApplicationError
+import redis
 
 
 
@@ -38,49 +39,24 @@ class AppSession(ApplicationSession):
 
     @inlineCallbacks
     def onJoin(self, details):
+        r = redis.StrictRedis(host='localhost', port=6379, db=0)
 
-        ## SUBSCRIBE to a topic and receive events
-        ##
-        
-        # def onhello(msg):
-        #     print("event for 'onhello' received: {}".format(msg))
+        # when a message is printed, save it        
+        def onMessage(msg):
+            print("event for 'onhello' received: {}".format(msg))
+            r.rpush('messages', msg)
 
-        # sub = yield self.subscribe(onhello, 'com.example.onhello')
-        # print("subscribed to topic 'onhello'")
+        # add functionality to only get last 15 messages
+        def getMessages():
+            # get the list
+            messages = r.lrange('messages', 0, -1)
+            return messages
+
+        sub = yield self.subscribe(onMessage, 'com.myapp.topic1')
+        print("subscribed to topic 'onhello'")
 
 
         # ## REGISTER a procedure for remote calling
-        # ##
-        # def add2(x, y):
-        #     print("add2() called with {} and {}".format(x, y))
-        #     return x + y
+        reg = yield self.register(getMessages, 'com.myapp.getMessages')
+        print("procedure getMessages() registered")
 
-        # reg = yield self.register(add2, 'com.example.add2')
-        # print("procedure add2() registered")
-
-
-        ## PUBLISH and CALL every second .. forever
-        ##
-        counter = 0
-        while True:
-            
-            ## PUBLISH an event
-            ##
-            # yield self.publish('com.myapp.topic1', counter)
-            # print("published to 'oncounter' with counter {}".format(counter))
-            # counter += 1
-
-
-            ## CALL a remote procedure
-            ##
-            # try:
-            #     res = yield self.call('com.example.mul2', counter, 3)
-            #     print("mul2() called with result: {}".format(res))
-            # except ApplicationError as e:
-            #     ## ignore errors due to the frontend not yet having
-            #     ## registered the procedure we would like to call
-            #     if e.error != 'wamp.error.no_such_procedure':
-            #         raise e
-
-
-            yield sleep(1)

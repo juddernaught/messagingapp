@@ -4,22 +4,34 @@
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.min.js"></script>
       <!-- AutobahnJS -->
       <script src="bower_components/autobahn/autobahn.js"></script>
+      <script src="https://cdn.rawgit.com/Luegg/angularjs-scroll-glue/v2.0.4/src/scrollglue.js"></script>
+
 
       <!-- AngularWAMP -->
       <script src="bower_components/angular-wamp/release/angular-wamp.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+      <link rel="stylesheet" href="./style.css">
       <script src="js/wampclient.js"></script>
-
    </head>
    <body ng-controller="WampMessagingController">
       <!-- <li ng-show="messages"> -->
-      <textarea rows="4" cols="50">
+      <!-- <textarea rows="4" cols="50">
          {{conversationText}}
-      </textarea>
-      <br>
-      <form>
-         <input ng-model="textToSend">
-         <input type = "submit" value="Send Message" ng-click="submitText()">
-      </form>
+      </textarea> -->
+      <div>
+         <h1> Real-Time Chat Application using WAMP </h1>
+      </div>
+      <div id="content" scroll-glue=>
+         <ul>
+           <li ng-repeat="message in messages track by $index" >{{message}}</li>
+         </ul>
+      </div>
+      <div>
+         <form>
+            <input id="input" ng-model="textToSend">
+            <input class="btn btn-success sendMessageButton" type="submit" value="Send Message" ng-click="submitText()">
+         </form>
+      </div>
     </li>
    </body>
 </html>
