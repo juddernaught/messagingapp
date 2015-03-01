@@ -15,7 +15,7 @@ var app = angular.module("wampMessagingApp", [
 
 app.config(function ($wampProvider) {
 	$wampProvider.init({
-		url: 'ws://localhost:9000/ws',
+		url: 'ws://campusjobmessaging.herokuapp.com/ws',
   	realm: 'realm1'
     //Any other AutobahnJS options
 	});

@@ -40,8 +40,9 @@ class AppSession(ApplicationSession):
 
     @inlineCallbacks
     def onJoin(self, details):
-        r = redis.StrictRedis(host='localhost', port=6379, db=0)
-
+        # r = redis.StrictRedis(host='localhost', port=6379, db=0)
+        redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
+        r = redis.StrictRedis.from_url(redis_url)
         # when a message is printed, save it        
         def onMessage(msg):
             print("event for 'onhello' received: {}".format(msg))
