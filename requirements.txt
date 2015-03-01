@@ -29,7 +29,6 @@ shutilwhich==1.0.1
 six==1.9.0
 trollius==1.0.4
 Twisted==15.0.0
-vboxapi
 virtualenv==1.11.6
 Werkzeug==0.9.6
 ws4py==0.3.4
