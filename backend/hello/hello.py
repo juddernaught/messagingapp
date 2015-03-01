@@ -55,8 +55,8 @@ class AppSession(ApplicationSession):
         def getMessages():
             # get the list
             print('inside getMessages')
-            print(messages[0])
             messages = r.lrange('messages', 0, -1)
+            print(messages[0])
             return messages
 
         sub = yield self.subscribe(onMessage, 'com.myapp.topic1')
