@@ -1,1 +1,1 @@
-web: sh -c 'cd ./backend/ && crossbar start'
+web: crossbar start
