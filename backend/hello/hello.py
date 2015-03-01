@@ -44,7 +44,8 @@ class AppSession(ApplicationSession):
         # r = redis.StrictRedis(host='localhost', port=6379, db=0)
         redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
         r = redis.StrictRedis.from_url(redis_url)
-        r.rpush('messages', 'WELCOME TO THE MESSAGINGAPP')
+        r.del('messages')
+        r.rpush('messages', 'Welcome to the Messaging app!')
         # when a message is printed, save it        
         def onMessage(msg):
             print("event for 'onhello' received: {}".format(msg))
@@ -54,9 +55,7 @@ class AppSession(ApplicationSession):
         # add functionality to only get last 15 messages
         def getMessages():
             # get the list
-            print('inside getMessages')
             messages = r.lrange('messages', 0, -1)
-            print(messages[0])
             return messages
 
         sub = yield self.subscribe(onMessage, 'com.myapp.topic1')
