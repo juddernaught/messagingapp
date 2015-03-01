@@ -15,7 +15,6 @@ itsdangerous==0.24
 Jinja2==2.7.3
 jmespath==0.6.1
 MarkupSafe==0.23
-mercurial==2.6.2.post20130606
 mistune==0.5
 netaddr==0.7.13
 paramiko==1.15.1
