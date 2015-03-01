@@ -15,7 +15,7 @@ var app = angular.module("wampMessagingApp", [
 
 app.config(function ($wampProvider) {
 	$wampProvider.init({
-		url: 'ws://localhost:8080/ws',
+		url: 'ws://localhost:9000/ws',
   	realm: 'realm1'
     //Any other AutobahnJS options
 	});
