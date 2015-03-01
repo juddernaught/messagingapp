@@ -54,7 +54,8 @@ class AppSession(ApplicationSession):
         # add functionality to only get last 15 messages
         def getMessages():
             # get the list
-            print(messags[0])
+            print('inside getMessages')
+            print(messages[0])
             messages = r.lrange('messages', 0, -1)
             return messages
 
