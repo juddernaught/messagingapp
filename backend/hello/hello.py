@@ -44,6 +44,7 @@ class AppSession(ApplicationSession):
         # when a message is printed, save it        
         def onMessage(msg):
             print("event for 'onhello' received: {}".format(msg))
+            sys.stdout.flush()
             r.rpush('messages', msg)
 
         # add functionality to only get last 15 messages
@@ -54,9 +55,11 @@ class AppSession(ApplicationSession):
 
         sub = yield self.subscribe(onMessage, 'com.myapp.topic1')
         print("subscribed to topic 'onhello'")
+        sys.stdout.flush()
 
 
         # ## REGISTER a procedure for remote calling
         reg = yield self.register(getMessages, 'com.myapp.getMessages')
         print("procedure getMessages() registered")
+        sys.stdout.flush()
 
