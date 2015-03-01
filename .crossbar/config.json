@@ -25,11 +25,18 @@
             }
          ],
          "transports": [
+            { 
+               "type": "websocket", 
+               "endpoint": { 
+                  "type": "tcp", 
+                  "port": 9000 
+               } 
+            }, 
             {
                "type": "web",
                "endpoint": {
                   "type": "tcp",
-                  "port": 8080
+                  "port": $PORT
                },
                "paths": {
                   "/": {
@@ -41,6 +48,28 @@
                   }
                }
             }
+         ]
+      }, 
+      { 
+          "type": "container", 
+          "options": { 
+             "pythonpath": [".."] 
+          }, 
+         "components": [ 
+            { 
+                "type": "class", 
+                "classname": "hello.hello.AppSession", 
+                "realm": "realm1", 
+               "transport": { 
+                  "type": "websocket", 
+                  "url": "ws://127.0.0.1:9000", 
+                  "endpoint": { 
+                     "type": "tcp", 
+                     "host": "127.0.0.1", 
+                     "port": 9000 
+                  }   
+               } 
+            } 
          ]
       }
    ]

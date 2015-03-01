@@ -1,0 +1,20 @@
+{
+  "name": "messaging",
+  "version": "0.0.0",
+  "authors": [
+    "Daniel Judd <juddernaught@gmail.com>"
+  ],
+  "main": "wampclient.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-scroll-glue": "~2.0.4",
+    "angular-wamp": "~0.1.2"
+  }
+}
