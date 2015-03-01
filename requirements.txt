@@ -27,7 +27,6 @@ redis==2.10.3
 rsa==3.1.2
 shutilwhich==1.0.1
 six==1.9.0
--e git+https://github.com/jtmoulia/switchboard-python.git@f2971237f883d09ec1232bee2c1f92f96b9bb1fb#egg=switchboard_python-master
 trollius==1.0.4
 Twisted==15.0.0
 vboxapi==1.0
